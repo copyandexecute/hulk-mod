@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "gg.norisk.example.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "mixins": [
+  ],
+  "client": [
+    "AbstractClientPlayerEntityMixin",
+    "KeyboardMixin"
+  ]
+}
