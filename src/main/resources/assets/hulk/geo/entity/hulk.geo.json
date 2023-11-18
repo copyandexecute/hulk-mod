@@ -1,0 +1,126 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 5,
+				"visible_bounds_height": 7,
+				"visible_bounds_offset": [0, 2.5, 0]
+			},
+			"bones": [
+				{
+					"name": "hulk",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "neck",
+					"parent": "hulk",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-21, 52, -2], "size": [42, 11, 11], "uv": [0, 39]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "hulk",
+					"pivot": [-1, 62, 0],
+					"cubes": [
+						{"origin": [-7, 62, -6], "size": [12, 12, 12], "uv": [90, 118]}
+					]
+				},
+				{
+					"name": "left_leg",
+					"parent": "hulk",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-14, 0, -1], "size": [10, 12, 10], "uv": [108, 0]},
+						{"origin": [-12, 11, 0], "size": [7, 12, 7], "uv": [77, 142]}
+					]
+				},
+				{
+					"name": "right_leg",
+					"parent": "hulk",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [4, 0, -1], "size": [9, 12, 9], "uv": [129, 133]},
+						{"origin": [5, 11, 0], "size": [7, 12, 7], "uv": [106, 50]}
+					]
+				},
+				{
+					"name": "body",
+					"parent": "hulk",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-12, 23, -4], "size": [24, 7, 15], "uv": [71, 70]},
+						{"origin": [-11.5, 30, -1.5], "size": [23, 4, 10], "uv": [0, 85]},
+						{"origin": [-13.5, 34, -4.5], "size": [27, 8, 16], "uv": [0, 61]},
+						{"origin": [-16.5, 42, -7.5], "size": [33, 18, 21], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "left_arm",
+					"parent": "hulk",
+					"pivot": [-20.83333, 52.30247, 2.28464],
+					"rotation": [-10, 0, 0]
+				},
+				{
+					"name": "left_shoulder",
+					"parent": "left_arm",
+					"pivot": [-20.83333, 39.30247, 2.28464],
+					"cubes": [
+						{"origin": [-26, 46, -3], "size": [11, 12, 14], "uv": [102, 92]}
+					]
+				},
+				{
+					"name": "left_elbow",
+					"parent": "left_arm",
+					"pivot": [-21, 38, 4],
+					"cubes": [
+						{"origin": [-25, 27, -2], "size": [8, 22, 11], "pivot": [-21, 38, 4], "rotation": [-5, 0, 0], "uv": [0, 125]}
+					]
+				},
+				{
+					"name": "left_hand",
+					"parent": "left_elbow",
+					"pivot": [-21, 29.08112, 4.23399],
+					"cubes": [
+						{"origin": [-26, 19, -5], "size": [10, 11, 16], "pivot": [-21, 23, -0.5], "rotation": [52.5, 0, 0], "uv": [95, 23]}
+					]
+				},
+				{
+					"name": "right_arm",
+					"parent": "hulk",
+					"pivot": [20.83333, 52.30247, 2.28464],
+					"rotation": [-10, 0, 0]
+				},
+				{
+					"name": "right_shoulder",
+					"parent": "right_arm",
+					"pivot": [20.83333, 39.30247, 2.28464],
+					"cubes": [
+						{"origin": [15, 46, -3], "size": [11, 12, 14], "uv": [0, 99]}
+					]
+				},
+				{
+					"name": "right_elbow",
+					"parent": "right_arm",
+					"pivot": [21, 38, 4],
+					"cubes": [
+						{"origin": [17, 27, -2], "size": [8, 22, 11], "pivot": [21, 38, 4], "rotation": [-5, 0, 0], "uv": [39, 119]}
+					]
+				},
+				{
+					"name": "right_hand",
+					"parent": "right_elbow",
+					"pivot": [21, 29.08112, 4.23399],
+					"cubes": [
+						{"origin": [16, 19, -5], "size": [10, 11, 16], "pivot": [21, 23, -0.5], "rotation": [52.5, 0, 0], "uv": [50, 92]}
+					]
+				}
+			]
+		}
+	]
+}
