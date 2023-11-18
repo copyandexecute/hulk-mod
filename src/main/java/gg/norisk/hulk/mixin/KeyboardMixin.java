@@ -1,7 +1,7 @@
-package gg.norisk.example.mixin;
+package gg.norisk.hulk.mixin;
 
-import gg.norisk.example.client.event.ExampleEventsKt;
-import gg.norisk.example.client.event.KeyEvent;
+import gg.norisk.hulk.client.event.BasicEventsKt;
+import gg.norisk.hulk.client.event.KeyEvent;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Final;
@@ -23,7 +23,7 @@ public abstract class KeyboardMixin {
     @Inject(method = "onKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/InputUtil;fromKeyCode(II)Lnet/minecraft/client/util/InputUtil$Key;", shift = At.Shift.AFTER))
     private void onKeyInjection(long window, int key, int scancode, int action, int j, CallbackInfo callback) {
         if (action == 1) {
-            ExampleEventsKt.getOnKeyPressedOnce().invoke(new KeyEvent(key, scancode, client));
+            BasicEventsKt.getOnKeyPressedOnce().invoke(new KeyEvent(key, scancode, client));
         }
     }
 }

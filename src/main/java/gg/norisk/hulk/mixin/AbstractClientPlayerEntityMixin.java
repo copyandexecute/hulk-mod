@@ -1,10 +1,10 @@
-package gg.norisk.example.mixin;
+package gg.norisk.hulk.mixin;
 
 import com.mojang.authlib.GameProfile;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationAccess;
-import gg.norisk.example.client.player.IAnimatedPlayer;
+import gg.norisk.hulk.client.player.IAnimatedPlayer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +35,7 @@ public abstract class AbstractClientPlayerEntityMixin implements IAnimatedPlayer
      * Override the interface function, so we can use it in the future
      */
     @Override
-    public @NotNull ModifierLayer<IAnimation> example_getModAnimation() {
+    public @NotNull ModifierLayer<IAnimation> hulk_getModAnimation() {
         return modAnimationContainer;
     }
 }

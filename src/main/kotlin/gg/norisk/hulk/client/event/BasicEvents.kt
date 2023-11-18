@@ -1,4 +1,4 @@
-package gg.norisk.example.client.event
+package gg.norisk.hulk.client.event
 
 import net.minecraft.client.MinecraftClient
 import net.silkmc.silk.core.annotations.ExperimentalSilkApi

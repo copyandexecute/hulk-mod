@@ -1,4 +1,4 @@
-rootProject.name = "examplemod"
+rootProject.name = "hulk-mod"
 
 pluginManagement {
     repositories {

@@ -1,8 +1,8 @@
-package gg.norisk.example.client.player
+package gg.norisk.hulk.client.player
 
 import dev.kosmx.playerAnim.api.layered.IAnimation
 import dev.kosmx.playerAnim.api.layered.ModifierLayer
 
 interface IAnimatedPlayer {
-    fun example_getModAnimation(): ModifierLayer<IAnimation>
+    fun hulk_getModAnimation(): ModifierLayer<IAnimation>
 }

@@ -1,4 +1,4 @@
-package gg.norisk.example.common
+package gg.norisk.hulk.common
 
 import net.fabricmc.api.ModInitializer
 

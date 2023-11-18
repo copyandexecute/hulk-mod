@@ -1,4 +1,4 @@
-package gg.norisk.example.client
+package gg.norisk.hulk.client
 
 import net.fabricmc.api.ClientModInitializer
 
