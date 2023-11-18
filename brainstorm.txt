@@ -1,0 +1,30 @@
+Features nach Priorität
+
+Hin und Rücktransformation zu Hulk
+Wie machen? Player Animator / GeckoLib Armor / Replaced Entity?
+Wie -> Maybe Hulk als Entity und dann Replacen wie die eine Mod das macht?
+-> Soundeffekt ROOOAR
+
+Leertaste gedrückt halten zum Sprung aufladen
+
+-> Hinspringen wohin man guckt * LADUNG
+-> Absprungskrater am Boden machen und paar blöcke zerstören / Destroy Packet
+-> Soundeffekte für Absprung, Flug, Landung
+-> Kamerashake
+
+Groundsmash
+-> Wenn man in Luft ist kann man runter smashen
+
+Hulk Thunderclap (Schockwelle die Gegner Stunded)
+-> Particle
+-> Shake
+-> Gegner shaken?
+
+Smash Entities durch wände (Soundeffekt)
+Projektile prallen ab wie bei Enderdrachen
+Grüne Herzen und Mehr Herzen
+Schnellere regeneration
+
+Entities aufheben und werfen/schleudern
+
+

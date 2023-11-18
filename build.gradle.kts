@@ -13,6 +13,7 @@ version = "1.0.0"
 repositories {
     mavenCentral()
     maven("https://maven.kosmx.dev/")
+    maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
 }
 
 dependencies {
@@ -26,6 +27,7 @@ dependencies {
     modImplementation("net.silkmc:silk-core:$silkVersion")
     modImplementation("net.silkmc:silk-network:$silkVersion")
     modImplementation("net.silkmc:silk-commands:$silkVersion")
+    modImplementation("software.bernie.geckolib:geckolib-fabric-1.20.1:4.2.4")
     include(modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:1.0.2-rc1+1.20")!!)
 }
 
