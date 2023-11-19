@@ -6,10 +6,10 @@ Wie -> Maybe Hulk als Entity und dann Replacen wie die eine Mod das macht?
 -> Soundeffekt ROOOAR
 
 Leertaste gedrückt halten zum Sprung aufladen
-
--> Hinspringen wohin man guckt * LADUNG
+-> Ladung dynamischer machen
+-> Hinspringen wohin man guckt * LADUNG DONE
 -> Absprungskrater am Boden machen und paar blöcke zerstören / Destroy Packet DONE
--> Soundeffekte für Absprung, Flug, Landung
+-> Soundeffekte für Absprung, Flug, Landung DONE
 -> Kamerashake DONE
 
 Groundsmash

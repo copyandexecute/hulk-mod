@@ -1,6 +1,5 @@
 package gg.norisk.hulk.common.network
 
-import gg.norisk.hulk.common.utils.HulkUtils
 import gg.norisk.hulk.common.ManagerCommon.toId
 import kotlinx.serialization.ExperimentalSerializationApi
 import net.silkmc.silk.core.entity.directionVector
