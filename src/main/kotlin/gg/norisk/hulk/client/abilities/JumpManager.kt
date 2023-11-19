@@ -25,8 +25,8 @@ import kotlin.random.Random
 object JumpManager : ClientTickEvents.EndTick, HudRenderCallback {
     private val ICONS = Identifier("textures/gui/icons.png")
     private val jumpKey by lazy { MinecraftClient.getInstance().options.jumpKey }
-    private var isCharging = false
-    private var jumpStrength = 0.0
+    var isCharging = false
+    var jumpStrength = 0.0
     private var isFlying = false
     private const val MAX_JUMP_STRENGTH = 10.0
 
