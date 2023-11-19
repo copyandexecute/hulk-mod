@@ -22,8 +22,6 @@ public abstract class KeyboardMixin {
      */
     @Inject(method = "onKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/InputUtil;fromKeyCode(II)Lnet/minecraft/client/util/InputUtil$Key;", shift = At.Shift.AFTER))
     private void onKeyInjection(long window, int key, int scancode, int action, int j, CallbackInfo callback) {
-        if (action == 1) {
-            BasicEventsKt.getOnKeyPressedOnce().invoke(new KeyEvent(key, scancode, client));
-        }
+        BasicEventsKt.getKeyEvent().invoke(new KeyEvent(key, scancode, action, client));
     }
 }
