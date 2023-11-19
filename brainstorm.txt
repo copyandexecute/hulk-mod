@@ -8,9 +8,9 @@ Wie -> Maybe Hulk als Entity und dann Replacen wie die eine Mod das macht?
 Leertaste gedrückt halten zum Sprung aufladen
 
 -> Hinspringen wohin man guckt * LADUNG
--> Absprungskrater am Boden machen und paar blöcke zerstören / Destroy Packet
+-> Absprungskrater am Boden machen und paar blöcke zerstören / Destroy Packet DONE
 -> Soundeffekte für Absprung, Flug, Landung
--> Kamerashake
+-> Kamerashake DONE
 
 Groundsmash
 -> Wenn man in Luft ist kann man runter smashen
