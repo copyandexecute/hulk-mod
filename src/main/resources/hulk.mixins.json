@@ -6,11 +6,13 @@
     "defaultRequire": 0
   },
   "mixins": [
+    "PlayerEntityMixin"
   ],
   "client": [
     "AbstractClientPlayerEntityMixin",
     "CameraMixin",
     "GameRendererMixin",
-    "KeyboardMixin"
+    "KeyboardMixin",
+    "PlayerEntityRendererMixin"
   ]
 }

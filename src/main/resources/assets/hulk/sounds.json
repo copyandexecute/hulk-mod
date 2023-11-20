@@ -3,5 +3,15 @@
     "sounds": [
       "hulk:jump"
     ]
+  },
+  "scream": {
+    "sounds": [
+      "hulk:scream"
+    ]
+  },
+  "breath": {
+    "sounds": [
+      "hulk:breath"
+    ]
   }
 }
