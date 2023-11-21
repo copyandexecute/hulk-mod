@@ -8,9 +8,11 @@ import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,6 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
+    @Shadow
+    protected HungerManager hungerManager;
+
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -58,6 +63,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             return 0.5f;
         } else {
             return super.getJumpBoostVelocityModifier();
+        }
+    }
+
+    @Inject(method = "tickMovement", at = @At("HEAD"))
+    private void regenerationInjection(CallbackInfo ci) {
+        if (HulkPlayerKt.isHulk((PlayerEntity) (Object) this)) {
+            if (this.getHealth() < this.getMaxHealth() && this.age % 3 == 0) {
+                this.heal(1.0F);
+            }
+
+            if (this.hungerManager.isNotFull() && this.age % 5 == 0) {
+                this.hungerManager.setFoodLevel(this.hungerManager.getFoodLevel() + 1);
+            }
         }
     }
 
