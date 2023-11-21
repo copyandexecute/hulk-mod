@@ -6,6 +6,7 @@ import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry
 import gg.norisk.hulk.client.event.KeyEvent
 import gg.norisk.hulk.client.event.keyEvent
 import gg.norisk.hulk.client.player.IAnimatedPlayer
+import gg.norisk.hulk.client.renderer.NamedKeyframeAnimationPlayer
 import gg.norisk.hulk.common.ManagerCommon.toId
 import gg.norisk.hulk.common.entity.isHulk
 import gg.norisk.hulk.common.network.NetworkManager
@@ -63,7 +64,10 @@ object HulkTransformation : ClientTickEvents.StartTick {
             // done modifying rules
             anim = builder.build();
 
-            animationContainer.animation = KeyframeAnimationPlayer(anim).setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
+            animationContainer.animation = NamedKeyframeAnimationPlayer(
+                "transformation",
+                anim
+            ).setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
         }
     }
 
@@ -81,9 +85,8 @@ object HulkTransformation : ClientTickEvents.StartTick {
             currentSize = max(defaultSize, currentSize - 0.01f)
         }
 
-        val keyFrameAnimation = animationContainer.animation as? KeyframeAnimationPlayer? ?: return
-        if (keyFrameAnimation.isActive) {
-
+        val keyFrameAnimation = animationContainer.animation as? NamedKeyframeAnimationPlayer? ?: return
+        if (keyFrameAnimation.isActive && keyFrameAnimation.name == "transformation") {
             if (keyFrameAnimation.currentTick == 0) {
                 MinecraftClient.getInstance().soundManager.play(
                     PositionedSoundInstance.master(

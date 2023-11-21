@@ -13,5 +13,25 @@
     "sounds": [
       "hulk:breath"
     ]
+  },
+  "clap": {
+    "sounds": [
+      "hulk:clap"
+    ]
+  },
+  "impact": {
+    "sounds": [
+      "hulk:impact"
+    ]
+  },
+  "boom": {
+    "sounds": [
+      "hulk:boom"
+    ]
+  },
+  "crack": {
+    "sounds": [
+      "hulk:crack"
+    ]
   }
 }

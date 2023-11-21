@@ -201,6 +201,41 @@
 					}
 				}
 			}
+		},
+		"thunderclap": {
+			"animation_length": 0.79167,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [-108.84996, 63.90988, -25.44292],
+							"easing": "linear"
+						},
+						"0.4167": {
+							"vector": [-88.51874, -22.53668, -11.98111],
+							"easing": "linear"
+						}
+					}
+				},
+				"left_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [-108.84996, -63.90988, 25.44292],
+							"easing": "linear"
+						},
+						"0.4167": {
+							"vector": [-88.51874, 22.53668, 11.98111],
+							"easing": "linear"
+						}
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

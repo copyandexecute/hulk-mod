@@ -2,6 +2,7 @@ package gg.norisk.hulk.client
 
 import gg.norisk.hulk.client.abilities.HulkTransformation
 import gg.norisk.hulk.client.abilities.JumpManager
+import gg.norisk.hulk.client.abilities.ThunderClap
 import gg.norisk.hulk.client.renderer.entity.HulkRenderer
 import gg.norisk.hulk.common.registry.EntityRegistry
 import net.fabricmc.api.ClientModInitializer
@@ -12,5 +13,6 @@ object ManagerClient : ClientModInitializer {
         EntityRendererRegistry.register(EntityRegistry.HULK, ::HulkRenderer)
         HulkTransformation.init()
         JumpManager.init()
+        ThunderClap.init()
     }
 }
