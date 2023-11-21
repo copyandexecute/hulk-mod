@@ -89,7 +89,7 @@ object JumpManager : ClientTickEvents.EndTick, HudRenderCallback {
                     blockPos,
                     state.soundGroup.breakSound,
                     SoundCategory.BLOCKS,
-                    0.4f,
+                    0.3f,
                     Random.nextDouble(0.8, 1.0).toFloat(),
                     true
                 )
