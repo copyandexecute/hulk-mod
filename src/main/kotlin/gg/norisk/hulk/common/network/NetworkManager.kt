@@ -3,6 +3,9 @@ package gg.norisk.hulk.common.network
 import gg.norisk.hulk.common.ManagerCommon.toId
 import gg.norisk.hulk.common.entity.isHulk
 import kotlinx.serialization.ExperimentalSerializationApi
+import net.minecraft.entity.attribute.EntityAttribute
+import net.minecraft.entity.attribute.EntityAttributes
+import net.minecraft.entity.damage.DamageSources
 import net.silkmc.silk.core.entity.directionVector
 import net.silkmc.silk.core.entity.modifyVelocity
 import net.silkmc.silk.core.entity.posUnder
@@ -23,6 +26,12 @@ object NetworkManager {
 
     private fun onHulkTransform(unit: Unit, context: ServerPacketContext) {
         context.player.isHulk = !context.player.isHulk
+        if (context.player.isHulk) {
+            context.player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = 60.0
+        } else {
+            context.player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = 20.0
+            context.player.damage(context.player.world.damageSources.generic(), 0.1f)
+        }
     }
 
     private fun onJumpPacket(jumpStrength: Double, context: ServerPacketContext) {
