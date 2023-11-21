@@ -7,10 +7,13 @@ import gg.norisk.hulk.common.registry.SoundRegistry
 import gg.norisk.hulk.common.utils.CameraShaker
 import gg.norisk.hulk.common.utils.HulkUtils
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gui.DrawContext
+import net.minecraft.client.option.KeyBinding
 import net.minecraft.client.sound.PositionedSoundInstance
+import net.minecraft.client.util.InputUtil
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.sound.SoundCategory
 import net.minecraft.util.Identifier
@@ -18,17 +21,26 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.silkmc.silk.core.annotations.ExperimentalSilkApi
 import net.silkmc.silk.core.entity.posUnder
+import org.lwjgl.glfw.GLFW
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
 object JumpManager : ClientTickEvents.EndTick, HudRenderCallback {
     private val ICONS = Identifier("textures/gui/icons.png")
-    private val jumpKey by lazy { MinecraftClient.getInstance().options.jumpKey }
+    val jumpKey = KeyBindingHelper.registerKeyBinding(
+        KeyBinding(
+            "key.hulk.boost", // The translation key of the keybinding's name
+            InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
+            GLFW.GLFW_KEY_V, // The keycode of the key
+            "category.hulk.abilities" // The translation key of the keybinding's category.
+        )
+    )
     var isCharging = false
     var jumpStrength = 0.0
     private var isFlying = false
     private const val MAX_JUMP_STRENGTH = 10.0
+    var flyTick = 0
 
     @OptIn(ExperimentalSilkApi::class)
     fun init() {
@@ -105,8 +117,10 @@ object JumpManager : ClientTickEvents.EndTick, HudRenderCallback {
         }
         val player = client.player ?: return
         if (isFlying) {
-            if (player.isOnGround) {
+            flyTick++
+            if (player.isOnGround && flyTick > 5) {
                 isFlying = false
+                flyTick = 0
                 handleLanding()
             }
         }
