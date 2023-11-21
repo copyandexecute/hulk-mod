@@ -31,6 +31,10 @@ dependencies {
     include(modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:1.0.2-rc1+1.20")!!)
 }
 
+loom {
+    accessWidenerPath.set(file("src/main/resources/hulk.accesswidener"))
+}
+
 tasks {
     compileKotlin {
         kotlinOptions {

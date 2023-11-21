@@ -12,6 +12,7 @@
     "AbstractClientPlayerEntityMixin",
     "CameraMixin",
     "GameRendererMixin",
+    "InGameHudMixin",
     "KeyboardMixin",
     "PlayerEntityRendererMixin"
   ]
