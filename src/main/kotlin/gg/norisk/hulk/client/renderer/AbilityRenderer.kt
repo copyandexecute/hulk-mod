@@ -27,6 +27,12 @@ object AbilityRenderer : HudRenderCallback {
         THUNDERCLAP(ThunderClap.thunderClapKey, "Thunderclap", {
             MinecraftClient.getInstance().player?.isHulk == true
         }),
+        BLOCKSMASH(MinecraftClient.getInstance().options.attackKey, "Block Smash", {
+            MinecraftClient.getInstance().player?.isHulk == true
+        }),
+        ENTITYSMASH(MinecraftClient.getInstance().options.attackKey, "Entity Smash", {
+            MinecraftClient.getInstance().player?.isHulk == true
+        }),
     }
 
     fun init() {

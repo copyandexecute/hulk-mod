@@ -13,6 +13,7 @@ object SoundRegistry {
     var CLAP = Registry.register(Registries.SOUND_EVENT, "clap".toId(), SoundEvent.of("clap".toId()))
     var BOOM = Registry.register(Registries.SOUND_EVENT, "boom".toId(), SoundEvent.of("boom".toId()))
     var CRACK = Registry.register(Registries.SOUND_EVENT, "crack".toId(), SoundEvent.of("crack".toId()))
+    var PUNCH = Registry.register(Registries.SOUND_EVENT, "punch".toId(), SoundEvent.of("punch".toId()))
 
     fun init() {
     }

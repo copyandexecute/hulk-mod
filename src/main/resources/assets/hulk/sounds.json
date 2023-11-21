@@ -33,5 +33,10 @@
     "sounds": [
       "hulk:crack"
     ]
+  },
+  "punch": {
+    "sounds": [
+      "hulk:punch"
+    ]
   }
 }

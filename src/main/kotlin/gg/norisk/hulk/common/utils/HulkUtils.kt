@@ -1,6 +1,17 @@
 package gg.norisk.hulk.common.utils
 
+import gg.norisk.hulk.common.registry.SoundRegistry
+import net.minecraft.client.MinecraftClient
+import net.minecraft.client.network.AbstractClientPlayerEntity
+import net.minecraft.client.sound.PositionedSoundInstance
+import net.minecraft.entity.Entity
+import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.math.BlockPos
+import net.silkmc.silk.core.entity.directionVector
+import net.silkmc.silk.core.entity.modifyVelocity
+import net.silkmc.silk.core.math.geometry.Sphere
+import net.silkmc.silk.core.task.mcCoroutineTask
 
 
 object HulkUtils {
@@ -20,5 +31,26 @@ object HulkUtils {
             }
         }
         return circleBlocks
+    }
+
+    fun smashEntity(player: PlayerEntity, entity: Entity) {
+        if (player is AbstractClientPlayerEntity) {
+            MinecraftClient.getInstance().soundManager.play(
+                PositionedSoundInstance.master(
+                    SoundRegistry.BOOM,
+                    1f,
+                    5f
+                )
+            )
+        } else if (player is ServerPlayerEntity) {
+            entity.modifyVelocity(player.directionVector.normalize().multiply(5.0))
+            mcCoroutineTask(howOften = 10, client = false) {
+                for (blockPos in generateSphere(entity.blockPos, 3, false)) {
+                    val blockState = player.world.getBlockState(blockPos)
+                    if (blockState.isAir) continue
+                    player.world.breakBlock(blockPos, false, player)
+                }
+            }
+        }
     }
 }

@@ -6,14 +6,17 @@
     "defaultRequire": 0
   },
   "mixins": [
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "ServerPlayerEntityMixin"
   ],
   "client": [
     "AbstractClientPlayerEntityMixin",
     "CameraMixin",
+    "ClientPlayerInteractionManagerMixin",
     "GameRendererMixin",
     "InGameHudMixin",
     "KeyboardMixin",
+    "MinecraftClientMixin",
     "PlayerEntityRendererMixin",
     "WorldRendererAccessor"
   ]

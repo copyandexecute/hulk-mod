@@ -2,11 +2,9 @@ package gg.norisk.hulk.mixin;
 
 import gg.norisk.hulk.client.abilities.HulkTransformation;
 import gg.norisk.hulk.common.entity.HulkPlayerKt;
+import gg.norisk.hulk.common.utils.HulkUtils;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,6 +21,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow
     protected HungerManager hungerManager;
 
+    @Shadow protected abstract boolean clipAtLedge();
+
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -32,12 +32,22 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         this.dataTracker.startTracking(HulkPlayerKt.getHulkTracker(), false);
     }
 
+    @Inject(method = "attack", at = @At("HEAD"))
+    private void attackInjection(Entity entity, CallbackInfo ci) {
+        HulkUtils.INSTANCE.smashEntity((PlayerEntity) ((Object) this), entity);
+    }
+
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
         super.onTrackedDataSet(data);
         if (HulkPlayerKt.getHulkTracker().equals(data)) {
             if ((Object) this instanceof AbstractClientPlayerEntity clientPlayer) {
                 HulkTransformation.INSTANCE.handleTransformation(clientPlayer);
+                if (HulkPlayerKt.isHulk(clientPlayer)) {
+                    setStepHeight(3.0f);
+                } else {
+                    setStepHeight(1.0f);
+                }
             }
             this.calculateDimensions();
         }
