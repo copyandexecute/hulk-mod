@@ -53,7 +53,7 @@ object ThunderClap : ClientTickEvents.StartTick {
 
     private fun onKeyEvent(event: KeyEvent) {
         val isThunderClapKey = thunderClapKey.matchesKey(event.key, event.scanCode)
-        if (isThunderClapKey) {
+        if (isThunderClapKey && event.action == 1) {
             val player = MinecraftClient.getInstance().player ?: return
             val animationContainer = (player as IAnimatedPlayer).hulk_getModAnimation()
             var anim = PlayerAnimationRegistry.getAnimation("thunderclap".toId())
