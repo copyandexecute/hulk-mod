@@ -27,6 +27,10 @@ public abstract class InGameHudMixin {
         if (player == null) return;
         if (HulkPlayerKt.isHulk(player)) {
             if (!HulkTransformation.INSTANCE.getUseHulkSkin()) return;
+            if (bl) {
+                ci.cancel();
+                return;
+            }
             if (bl2) {
                 drawContext.drawTexture(HALF, i, j, 9, 9, 9, 9, 9, 9);
             } else {
