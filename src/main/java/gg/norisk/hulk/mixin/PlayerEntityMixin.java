@@ -5,6 +5,7 @@ import gg.norisk.hulk.common.entity.HulkPlayerKt;
 import gg.norisk.hulk.common.utils.HulkUtils;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
