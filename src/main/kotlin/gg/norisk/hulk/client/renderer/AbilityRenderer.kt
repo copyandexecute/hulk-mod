@@ -44,9 +44,9 @@ object AbilityRenderer : HudRenderCallback {
         Abilities.values().filter { it.shouldRender() }.forEachIndexed { index, ability ->
             val text = literalText {
                 if (ability.hold) {
-                    text("Hold ") { color = 0xfff200 }
+                    text("Hold ") { color = 0x47CD45 }
                 }
-                text(ability.keybinding.boundKeyLocalizedText) { color = 0xfff200 }
+                text(ability.keybinding.boundKeyLocalizedText) { color = 0x47CD45 }
                 text(" - ") { color = 0x919191 }
                 text(ability.description)
             }
