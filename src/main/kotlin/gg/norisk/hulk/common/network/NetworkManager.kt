@@ -82,12 +82,10 @@ object NetworkManager {
         if (context.player.isHulk) {
             context.player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)?.baseValue = 0.188
             context.player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = 60.0
-            context.player.stepHeight = 3.0f
         } else {
             context.player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = 20.0
             context.player.damage(context.player.world.damageSources.generic(), 0.1f)
             context.player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)?.baseValue = 0.10000000149011612
-            context.player.stepHeight = 1.0f
         }
     }
 

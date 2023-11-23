@@ -46,7 +46,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 if (HulkPlayerKt.isHulk(clientPlayer)) {
                     setStepHeight(3.0f);
                 } else {
-                    setStepHeight(1.0f);
+                    setStepHeight(0.6f);
                 }
             }
             this.calculateDimensions();
