@@ -14,7 +14,19 @@ object SoundRegistry {
     var BOOM = Registry.register(Registries.SOUND_EVENT, "boom".toId(), SoundEvent.of("boom".toId()))
     var CRACK = Registry.register(Registries.SOUND_EVENT, "crack".toId(), SoundEvent.of("crack".toId()))
     var PUNCH = Registry.register(Registries.SOUND_EVENT, "punch".toId(), SoundEvent.of("punch".toId()))
+    var STEPSOUND = Registry.register(Registries.SOUND_EVENT, "step_sound".toId(), SoundEvent.of("step_sound".toId()))
+
+    var GROWLS = buildList {
+        repeat(6) {
+            val index = it + 1
+            add(Registry.register(Registries.SOUND_EVENT, "growl_$index".toId(), SoundEvent.of("growl_$index".toId())))
+        }
+    }
 
     fun init() {
+    }
+
+    fun getRandomGrowlSound(): SoundEvent {
+        return GROWLS.random()
     }
 }

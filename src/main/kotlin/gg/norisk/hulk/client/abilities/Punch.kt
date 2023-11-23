@@ -19,6 +19,13 @@ object Punch {
     fun onAttack(startBlockPos: BlockPos) {
         val player = MinecraftClient.getInstance().player ?: return
         if (MinecraftClient.getInstance().player!!.isHulk) {
+            MinecraftClient.getInstance().soundManager.play(
+                PositionedSoundInstance.master(
+                    SoundRegistry.getRandomGrowlSound(),
+                    1f,
+                    1f
+                )
+            )
             punchPacket.send(SimpleIntPos(startBlockPos.x, startBlockPos.y, startBlockPos.z))
             MinecraftClient.getInstance().soundManager.play(
                 PositionedSoundInstance.master(

@@ -37,6 +37,13 @@ object HulkUtils {
         if (player is AbstractClientPlayerEntity) {
             MinecraftClient.getInstance().soundManager.play(
                 PositionedSoundInstance.master(
+                    SoundRegistry.getRandomGrowlSound(),
+                    1f,
+                    1f
+                )
+            )
+            MinecraftClient.getInstance().soundManager.play(
+                PositionedSoundInstance.master(
                     SoundRegistry.BOOM,
                     1f,
                     5f

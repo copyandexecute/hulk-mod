@@ -38,5 +38,40 @@
     "sounds": [
       "hulk:punch"
     ]
+  },
+  "growl_1": {
+    "sounds": [
+      "hulk:growl_1"
+    ]
+  },
+  "growl_2": {
+    "sounds": [
+      "hulk:growl_2"
+    ]
+  },
+  "growl_3": {
+    "sounds": [
+      "hulk:growl_3"
+    ]
+  },
+  "growl_4": {
+    "sounds": [
+      "hulk:growl_4"
+    ]
+  },
+  "growl_5": {
+    "sounds": [
+      "hulk:growl_5"
+    ]
+  },
+  "growl_6": {
+    "sounds": [
+      "hulk:growl_6"
+    ]
+  },
+  "step_sound": {
+    "sounds": [
+      "hulk:step_sound"
+    ]
   }
 }

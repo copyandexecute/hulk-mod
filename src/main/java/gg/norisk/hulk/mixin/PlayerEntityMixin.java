@@ -3,13 +3,20 @@ package gg.norisk.hulk.mixin;
 import gg.norisk.hulk.client.abilities.HulkTransformation;
 import gg.norisk.hulk.common.entity.HulkPlayerKt;
 import gg.norisk.hulk.common.entity.IHulkPlayer;
+import gg.norisk.hulk.common.registry.SoundRegistry;
 import gg.norisk.hulk.common.utils.HulkUtils;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +29,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPla
     @Shadow
     protected HungerManager hungerManager;
 
-    @Shadow protected abstract boolean clipAtLedge();
+    @Shadow
+    protected abstract boolean clipAtLedge();
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -87,6 +95,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPla
             if (this.hungerManager.isNotFull() && this.age % 5 == 0) {
                 this.hungerManager.setFoodLevel(this.hungerManager.getFoodLevel() + 1);
             }
+        }
+    }
+
+    @Inject(method = "getHurtSound", at = @At("RETURN"), cancellable = true)
+    private void getHurtSoundInjection(DamageSource damageSource, CallbackInfoReturnable<SoundEvent> cir) {
+        if (HulkPlayerKt.isHulk((PlayerEntity) (Object) this)) {
+            cir.setReturnValue(SoundRegistry.INSTANCE.getRandomGrowlSound());
+        }
+    }
+
+    @Inject(method = "getFallSounds", at = @At("RETURN"), cancellable = true)
+    private void getFallSoundsInjection(CallbackInfoReturnable<FallSounds> cir) {
+        if (HulkPlayerKt.isHulk((PlayerEntity) (Object) this)) {
+            cir.setReturnValue(new FallSounds(SoundRegistry.INSTANCE.getRandomGrowlSound(), SoundRegistry.INSTANCE.getRandomGrowlSound()));
         }
     }
 

@@ -138,6 +138,14 @@ object ThunderClap : ClientTickEvents.StartTick {
 
                 MinecraftClient.getInstance().soundManager.play(
                     PositionedSoundInstance.master(
+                        SoundRegistry.getRandomGrowlSound(),
+                        1f,
+                        1f
+                    )
+                )
+
+                MinecraftClient.getInstance().soundManager.play(
+                    PositionedSoundInstance.master(
                         SoundRegistry.BOOM,
                         0.5f,
                         1f
