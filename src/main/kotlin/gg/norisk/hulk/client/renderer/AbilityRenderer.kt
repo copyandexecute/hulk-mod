@@ -33,6 +33,9 @@ object AbilityRenderer : HudRenderCallback {
         ENTITYSMASH(MinecraftClient.getInstance().options.attackKey, "Entity Smash", {
             MinecraftClient.getInstance().player?.isHulk == true
         }),
+        ENTITYTHROW(MinecraftClient.getInstance().options.useKey, "Pickup Entity", {
+            MinecraftClient.getInstance().player?.isHulk == true
+        }),
     }
 
     fun init() {

@@ -9,12 +9,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,8 +24,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPlayer {
+    private static final TrackedData<Optional<BlockState>> PICKED_BLOCKSTATE = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_STATE);
+
     @Shadow
     protected HungerManager hungerManager;
 
@@ -39,6 +43,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPla
     @Inject(method = "initDataTracker", at = @At("TAIL"))
     private void initDataTrackerInjecetion(CallbackInfo ci) {
         this.dataTracker.startTracking(HulkPlayerKt.getHulkTracker(), false);
+        this.dataTracker.startTracking(PICKED_BLOCKSTATE, Optional.empty());
     }
 
     @Inject(method = "attack", at = @At("HEAD"))
@@ -145,6 +150,26 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPla
     @Override
     public void setGetCustomCreativeBlockReachDistance(float v) {
 
+    }
+
+    @Override
+    public double getMountedHeightOffset() {
+        if (HulkPlayerKt.isHulk((PlayerEntity) (Object) this)) {
+            return (double) this.getDimensions(this.getPose()).height;
+        } else {
+            return super.getMountedHeightOffset();
+        }
+    }
+
+    @Nullable
+    @Override
+    public BlockState getBlockStateInHand() {
+        return (BlockState) ((Optional) this.dataTracker.get(PICKED_BLOCKSTATE)).orElse(null);
+    }
+
+    @Override
+    public void setBlockStateInHand(@Nullable BlockState blockState) {
+        this.dataTracker.set(PICKED_BLOCKSTATE, Optional.ofNullable(blockState));
     }
 
     @Override

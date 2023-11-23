@@ -2,12 +2,20 @@ package gg.norisk.hulk.common.network
 
 import gg.norisk.hulk.common.ManagerCommon.toId
 import gg.norisk.hulk.common.entity.isHulk
+import gg.norisk.hulk.common.registry.SoundRegistry
 import gg.norisk.hulk.common.utils.HulkUtils
 import gg.norisk.hulk.common.utils.SimpleIntPos
 import kotlinx.serialization.ExperimentalSerializationApi
+import net.fabricmc.fabric.api.event.player.UseEntityCallback
+import net.minecraft.client.MinecraftClient
+import net.minecraft.client.sound.PositionedSoundInstance
 import net.minecraft.entity.attribute.EntityAttributes
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.util.ActionResult
+import net.minecraft.util.Hand
 import net.minecraft.util.math.Box
 import net.silkmc.silk.core.annotations.ExperimentalSilkApi
 import net.silkmc.silk.core.entity.directionVector
@@ -17,9 +25,13 @@ import net.silkmc.silk.core.kotlin.asMinecraftRandom
 import net.silkmc.silk.core.task.mcCoroutineTask
 import net.silkmc.silk.network.packet.ServerPacketContext
 import net.silkmc.silk.network.packet.c2sPacket
+import net.silkmc.silk.network.packet.s2cPacket
+import java.util.UUID
 import kotlin.random.Random
 
 object NetworkManager {
+    var flyingEntities = mutableSetOf<UUID>()
+
     @OptIn(ExperimentalSerializationApi::class)
     val jumpPacket = c2sPacket<Double>("jump-packet".toId())
 
@@ -35,13 +47,47 @@ object NetworkManager {
     @OptIn(ExperimentalSerializationApi::class)
     val punchPacket = c2sPacket<SimpleIntPos>("punch".toId())
 
+    @OptIn(ExperimentalSerializationApi::class)
+    val growlSoundPacket = s2cPacket<Unit>("growl".toId())
+
 
     fun init() {
+        growlSoundPacket.receiveOnClient { packet, context ->
+            if (context.client.player?.isHulk == true) {
+                MinecraftClient.getInstance().soundManager.play(
+                    PositionedSoundInstance.master(
+                        SoundRegistry.getRandomGrowlSound(),
+                        1f,
+                        1f
+                    )
+                )
+            }
+        }
         jumpPacket.receiveOnServer(::onJumpPacket)
         hulkTransformPacket.receiveOnServer(::onHulkTransform)
         forceBreakBlock.receiveOnServer(::onForceBlockBreak)
         thunderClapPacket.receiveOnServer(::onThunderClap)
         punchPacket.receiveOnServer(::onPunch)
+        UseEntityCallback.EVENT.register(UseEntityCallback { player, world, hand, entity, _ ->
+            if (!world.isClient && hand == Hand.MAIN_HAND) {
+                entity?.startRiding(player)
+                growlSoundPacket.send(Unit, player as ServerPlayerEntity)
+                return@UseEntityCallback ActionResult.SUCCESS
+            }
+            return@UseEntityCallback ActionResult.PASS
+        })
+    }
+
+    fun ServerPlayerEntity.throwPassengers() {
+        if (this.isHulk && hasPassengers()) {
+            growlSoundPacket.send(Unit, this)
+            val passengers = passengerList.toList()
+            removeAllPassengers()
+            for (passenger in passengers) {
+                passenger.modifyVelocity(directionVector.normalize().multiply(3.5))
+                flyingEntities += passenger.uuid
+            }
+        }
     }
 
     @OptIn(ExperimentalSilkApi::class)
