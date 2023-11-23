@@ -3,6 +3,7 @@ package gg.norisk.hulk.mixin;
 import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
 import gg.norisk.hulk.client.abilities.HulkTransformation;
 import gg.norisk.hulk.client.player.IAnimatedPlayer;
+import gg.norisk.hulk.common.entity.HulkPlayerKt;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -30,15 +31,9 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         super(context, entityModel, f);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void initInjection(EntityRendererFactory.Context context, boolean bl, CallbackInfo ci) {
-        //this.addFeature(new BlockInHandRendererFeature(this));
-    }
-
-
     @Inject(method = "renderArm", at = @At("HEAD"), cancellable = true)
     private void renderArmInjection(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, ModelPart modelPart, ModelPart modelPart2, CallbackInfo ci) {
-        if (!player.getPassengerList().isEmpty()) {
+        if (!player.getPassengerList().isEmpty() && HulkPlayerKt.isHulk(player)) {
             ci.cancel();
             PlayerEntityModel<AbstractClientPlayerEntity> playerEntityModel = this.getModel();
             this.setModelPose(player);

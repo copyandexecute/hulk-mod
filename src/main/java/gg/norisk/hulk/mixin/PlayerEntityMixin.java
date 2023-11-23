@@ -28,8 +28,6 @@ import java.util.Optional;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPlayer {
-    private static final TrackedData<Optional<BlockState>> PICKED_BLOCKSTATE = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_STATE);
-
     @Shadow
     protected HungerManager hungerManager;
 
@@ -43,7 +41,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPla
     @Inject(method = "initDataTracker", at = @At("TAIL"))
     private void initDataTrackerInjecetion(CallbackInfo ci) {
         this.dataTracker.startTracking(HulkPlayerKt.getHulkTracker(), false);
-        this.dataTracker.startTracking(PICKED_BLOCKSTATE, Optional.empty());
     }
 
     @Inject(method = "attack", at = @At("HEAD"))
@@ -161,24 +158,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPla
         }
     }
 
-    @Nullable
-    @Override
-    public BlockState getBlockStateInHand() {
-        return (BlockState) ((Optional) this.dataTracker.get(PICKED_BLOCKSTATE)).orElse(null);
-    }
-
-    @Override
-    public void setBlockStateInHand(@Nullable BlockState blockState) {
-        this.dataTracker.set(PICKED_BLOCKSTATE, Optional.ofNullable(blockState));
-    }
-
     @Override
     public float getGetCustomCreativeBlockReachDistance() {
         return 8.0f;
-    }
-
-    @Override
-    public EntityDimensions getDimensions(EntityPose pose) {
-        return super.getDimensions(pose);
     }
 }

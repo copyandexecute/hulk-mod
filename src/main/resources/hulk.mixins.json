@@ -19,7 +19,6 @@
     "GameRendererMixin",
     "InGameHudMixin",
     "KeyboardMixin",
-    "PlayerEntityRendererMixin",
-    "WorldRendererAccessor"
+    "PlayerEntityRendererMixin"
   ]
 }

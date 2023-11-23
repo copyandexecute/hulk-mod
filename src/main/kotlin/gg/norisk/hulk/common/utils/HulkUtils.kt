@@ -1,5 +1,6 @@
 package gg.norisk.hulk.common.utils
 
+import gg.norisk.hulk.common.entity.isHulk
 import gg.norisk.hulk.common.registry.SoundRegistry
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.network.AbstractClientPlayerEntity
@@ -34,7 +35,7 @@ object HulkUtils {
     }
 
     fun smashEntity(player: PlayerEntity, entity: Entity) {
-        if (player is AbstractClientPlayerEntity) {
+        if (player is AbstractClientPlayerEntity && player.isHulk) {
             MinecraftClient.getInstance().soundManager.play(
                 PositionedSoundInstance.master(
                     SoundRegistry.getRandomGrowlSound(),
@@ -49,7 +50,7 @@ object HulkUtils {
                     5f
                 )
             )
-        } else if (player is ServerPlayerEntity) {
+        } else if (player is ServerPlayerEntity && player.isHulk) {
             entity.modifyVelocity(player.directionVector.normalize().multiply(5.0))
             mcCoroutineTask(howOften = 10, client = false) {
                 for (blockPos in generateSphere(entity.blockPos, 3, false)) {

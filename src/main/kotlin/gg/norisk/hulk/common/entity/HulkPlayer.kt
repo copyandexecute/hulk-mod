@@ -11,7 +11,6 @@ interface IHulkPlayer {
     var getCustomCreativeAttackReachDistance: Double
     var getCustomBlockReachDistance: Float
     var getCustomCreativeBlockReachDistance: Float
-    var blockStateInHand: BlockState?
 }
 
 val hulkTracker: TrackedData<Boolean> =

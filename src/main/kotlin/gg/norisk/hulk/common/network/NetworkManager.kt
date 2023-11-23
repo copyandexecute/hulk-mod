@@ -69,7 +69,7 @@ object NetworkManager {
         thunderClapPacket.receiveOnServer(::onThunderClap)
         punchPacket.receiveOnServer(::onPunch)
         UseEntityCallback.EVENT.register(UseEntityCallback { player, world, hand, entity, _ ->
-            if (!world.isClient && hand == Hand.MAIN_HAND) {
+            if (!world.isClient && hand == Hand.MAIN_HAND && player.isHulk) {
                 entity?.startRiding(player)
                 growlSoundPacket.send(Unit, player as ServerPlayerEntity)
                 return@UseEntityCallback ActionResult.SUCCESS

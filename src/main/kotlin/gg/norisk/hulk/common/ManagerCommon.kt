@@ -14,11 +14,6 @@ object ManagerCommon : ModInitializer {
         EntityRegistry.init()
         NetworkManager.init()
         SoundRegistry.init()
-        command("blockstate") {
-            runs {
-                (this.source.player as IHulkPlayer).blockStateInHand = Blocks.STONE.defaultState
-            }
-        }
     }
 
     fun String.toId() = Identifier("hulk", this)
