@@ -2,10 +2,10 @@ package gg.norisk.hulk.mixin;
 
 import gg.norisk.hulk.client.abilities.HulkTransformation;
 import gg.norisk.hulk.common.entity.HulkPlayerKt;
+import gg.norisk.hulk.common.entity.IHulkPlayer;
 import gg.norisk.hulk.common.utils.HulkUtils;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.*;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity {
+public abstract class PlayerEntityMixin extends LivingEntity implements IHulkPlayer {
     @Shadow
     protected HungerManager hungerManager;
 
@@ -90,6 +90,45 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
+    @Override
+    public void setGetCustomAttackReachDistance(double v) {
+
+    }
+
+    @Override
+    public double getGetCustomAttackReachDistance() {
+        return 6.0;
+    }
+
+    @Override
+    public void setGetCustomCreativeAttackReachDistance(double v) {
+
+    }
+
+    @Override
+    public double getGetCustomCreativeAttackReachDistance() {
+        return 6.0;
+    }
+
+    @Override
+    public void setGetCustomBlockReachDistance(float v) {
+
+    }
+
+    @Override
+    public float getGetCustomBlockReachDistance() {
+        return 8.0f;
+    }
+
+    @Override
+    public void setGetCustomCreativeBlockReachDistance(float v) {
+
+    }
+
+    @Override
+    public float getGetCustomCreativeBlockReachDistance() {
+        return 8.0f;
+    }
 
     @Override
     public EntityDimensions getDimensions(EntityPose pose) {
