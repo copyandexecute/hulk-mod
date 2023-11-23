@@ -6,6 +6,7 @@ import gg.norisk.hulk.common.utils.HulkUtils
 import gg.norisk.hulk.common.utils.SimpleIntPos
 import kotlinx.serialization.ExperimentalSerializationApi
 import net.minecraft.entity.attribute.EntityAttributes
+import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.math.Box
 import net.silkmc.silk.core.annotations.ExperimentalSilkApi
@@ -54,7 +55,12 @@ object NetworkManager {
             Box.from(startBlockPos.toMcBlockPos().toCenterPos()).expand(5.0)
         )) {
             entity.damage(player.world.damageSources.playerAttack(player), Random.nextDouble(1.0, 3.0).toFloat())
-            entity.modifyVelocity(entity.velocity.addRandom(Random.asMinecraftRandom(), Random.nextDouble(1.1,3.0).toFloat()))
+            entity.modifyVelocity(
+                entity.velocity.addRandom(
+                    Random.asMinecraftRandom(),
+                    Random.nextDouble(1.1, 3.0).toFloat()
+                )
+            )
         }
     }
 
@@ -75,6 +81,13 @@ object NetworkManager {
     private fun onForceBlockBreak(pos: SimpleIntPos, context: ServerPacketContext) {
         val blockPos = pos.toMcBlockPos()
         context.player.world.breakBlock(blockPos, true, context.player)
+        //TODO somehow it stopped working so just to be sure
+        context.player.networkHandler.sendPacket(
+            BlockUpdateS2CPacket(
+                blockPos,
+                context.player.world.getBlockState(blockPos)
+            )
+        )
     }
 
     private fun onHulkTransform(unit: Unit, context: ServerPacketContext) {
@@ -85,7 +98,8 @@ object NetworkManager {
         } else {
             context.player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = 20.0
             context.player.damage(context.player.world.damageSources.generic(), 0.1f)
-            context.player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)?.baseValue = 0.10000000149011612
+            context.player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)?.baseValue =
+                0.10000000149011612
         }
     }
 
