@@ -2,12 +2,14 @@ package gg.norisk.hulk.client.abilities
 
 import com.google.common.cache.Cache
 import com.google.common.cache.CacheBuilder
+import dev.kosmx.playerAnim.api.firstPerson.FirstPersonMode
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry
 import gg.norisk.hulk.client.event.KeyEvent
 import gg.norisk.hulk.client.event.keyEvent
 import gg.norisk.hulk.client.player.IAnimatedPlayer
 import gg.norisk.hulk.client.renderer.NamedKeyframeAnimationPlayer
 import gg.norisk.hulk.common.ManagerCommon.toId
+import gg.norisk.hulk.common.entity.isHulk
 import gg.norisk.hulk.common.network.NetworkManager
 import gg.norisk.hulk.common.registry.SoundRegistry
 import gg.norisk.hulk.common.utils.CameraShaker
@@ -55,6 +57,7 @@ object ThunderClap : ClientTickEvents.StartTick {
         val isThunderClapKey = thunderClapKey.matchesKey(event.key, event.scanCode)
         if (isThunderClapKey && event.action == 1) {
             val player = MinecraftClient.getInstance().player ?: return
+            if (!player.isHulk) return
             val animationContainer = (player as IAnimatedPlayer).hulk_getModAnimation()
             var anim = PlayerAnimationRegistry.getAnimation("thunderclap".toId())
                 ?: error("No transformation animation ${"thunderclap".toId()}")
@@ -68,7 +71,8 @@ object ThunderClap : ClientTickEvents.StartTick {
             // done modifying rules
             anim = builder.build();
 
-            animationContainer.animation = NamedKeyframeAnimationPlayer("thunderclap", anim)
+            animationContainer.animation = NamedKeyframeAnimationPlayer("thunderclap", anim).setFirstPersonMode(
+                FirstPersonMode.THIRD_PERSON_MODEL)
         }
     }
 
