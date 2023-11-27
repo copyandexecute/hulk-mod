@@ -31,11 +31,6 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
     @Shadow
     public BipedEntityModel.ArmPose rightArmPose;
 
-    @Override
-    public void animateModel(T entity, float f, float g, float h) {
-        super.animateModel(entity, f, g, h);
-    }
-
     @Inject(method = "animateModel(Lnet/minecraft/entity/LivingEntity;FFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/AnimalModel;animateModel(Lnet/minecraft/entity/Entity;FFF)V"))
     private void animateModelInjection(T livingEntity, float f, float g, float h, CallbackInfo ci) {
         if (livingEntity instanceof PlayerEntity player && !livingEntity.getPassengerList().isEmpty() && HulkPlayerKt.isHulk(player)) {
@@ -53,7 +48,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 
     @Inject(method = "positionRightArm", at = @At("HEAD"))
     private void positionRightArmInjection(T livingEntity, CallbackInfo ci) {
-        if (livingEntity instanceof PlayerEntity player && !livingEntity.getPassengerList().isEmpty()  && HulkPlayerKt.isHulk(player)) {
+        if (livingEntity instanceof PlayerEntity player && !livingEntity.getPassengerList().isEmpty() && HulkPlayerKt.isHulk(player)) {
             this.rightArm.pitch = this.rightArm.pitch * 0.5F - 1.2566371F;
             this.rightArm.yaw = -0.5235988F;
         }
